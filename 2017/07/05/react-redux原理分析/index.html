@@ -93,15 +93,16 @@
 
 
 
-<meta name="description" content="前端">
-<meta property="og:type" content="website">
-<meta property="og:title" content="learn-shifeng的博客">
-<meta property="og:url" content="http://zhangshifeng.com/index.html">
+<meta name="description" content="前言 react和redux并没有什么直接的联系. redux作为一个通用模块, 主要还是用来处理应用中的state的变更, 而展示层不一定是react. 但当我们希望在React + Redux的项目中将两者结合的更好，可以通过react-redux做连接。本文结合react-redux的使用，分析其实现原理。  react-reduxreact-redux是一个轻量级的封装库，核心方法只有两个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-redux原理分析">
+<meta property="og:url" content="http://zhangshifeng.com/2017/07/05/react-redux原理分析/index.html">
 <meta property="og:site_name" content="learn-shifeng的博客">
-<meta property="og:description" content="前端">
+<meta property="og:description" content="前言 react和redux并没有什么直接的联系. redux作为一个通用模块, 主要还是用来处理应用中的state的变更, 而展示层不一定是react. 但当我们希望在React + Redux的项目中将两者结合的更好，可以通过react-redux做连接。本文结合react-redux的使用，分析其实现原理。  react-reduxreact-redux是一个轻量级的封装库，核心方法只有两个">
+<meta property="og:updated_time" content="2017-07-05T10:56:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="learn-shifeng的博客">
-<meta name="twitter:description" content="前端">
+<meta name="twitter:title" content="react-redux原理分析">
+<meta name="twitter:description" content="前言 react和redux并没有什么直接的联系. redux作为一个通用模块, 主要还是用来处理应用中的state的变更, 而展示层不一定是react. 但当我们希望在React + Redux的项目中将两者结合的更好，可以通过react-redux做连接。本文结合react-redux的使用，分析其实现原理。  react-reduxreact-redux是一个轻量级的封装库，核心方法只有两个">
 
 
 
@@ -129,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangshifeng.com/"/>
+  <link rel="canonical" href="http://zhangshifeng.com/2017/07/05/react-redux原理分析/"/>
 
 
 
 
 
-  <title>learn-shifeng的博客</title>
+  <title>react-redux原理分析 | learn-shifeng的博客</title>
   
 
 
@@ -160,9 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,9 +244,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -273,9 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/05/react-redux原理分析/" itemprop="url">react-redux原理分析</a></h1>
+          <h1 class="post-title" itemprop="name headline">react-redux原理分析</h1>
         
 
         <div class="post-meta">
@@ -322,9 +319,7 @@
       
 
       
-        
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p><code>react</code>和<code>redux</code>并没有什么直接的联系. <code>redux</code>作为一个通用模块, 主要还是用来处理应用中的state的变更, 而展示层不一定是<code>react</code>.</p>
 <p>但当我们希望在React + Redux的项目中将两者结合的更好，可以通过<code>react-redux</code>做连接。<br>本文结合react-redux的使用，分析其实现原理。</p>
 </blockquote>
@@ -380,20 +375,27 @@
 <h3 id="变更处理逻辑"><a href="#变更处理逻辑" class="headerlink" title="变更处理逻辑"></a>变更处理逻辑</h3><p>有了触发组件更新的时机，我们下面主要看下，组件是通过何种方式触发重新渲染<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">onStateChange() &#123;</div><div class="line">  ...</div><div class="line">  if (!this.selector.shouldComponentUpdate) &#123;</div><div class="line">    ...</div><div class="line">  &#125; else &#123;</div><div class="line">    ...</div><div class="line">    this.setState(dummyState) // dummyState = &#123;&#125;, 仅仅是为了触发更新</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>可以看到，react-redux的核心功能都在connect模块中，理解好这个模块，有助于我们更好的使用react-redux处理业务问题，优化代码性能。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
@@ -401,271 +403,38 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangshifeng.com/2017/07/04/CSS-flex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="learn-shifeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://img.mukewang.com/578a26ab0001fffc01000100-200-200.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="learn-shifeng的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/04/CSS-flex/" itemprop="url">CSS-flex</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T14:33:46+08:00">
-                2017-07-04
-              </time>
+              <a href="/2017/07/04/CSS-flex/" rel="next" title="CSS-flex">
+                <i class="fa fa-chevron-left"></i> CSS-flex
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h3 id="flex布局是什么"><a href="#flex布局是什么" class="headerlink" title="flex布局是什么?"></a>flex布局是什么?</h3><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性.<br>任何一个容器(块级和行内元素)都可以指定为flex布局.<br>Webkit 内核的浏览器，必须加上-webkit前缀.</p>
-<h3 id="flex的基本概念"><a href="#flex的基本概念" class="headerlink" title="flex的基本概念"></a>flex的基本概念</h3><p>采用flex布局的元素，称为flex容器(flex container)，简称”<code>容器</code>“。<br>它的所有子元素自动成为容器成员, 称为flex项目(flex item)，简称”<code>项目</code>“。<br><a href="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" target="_blank" rel="external">http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png</a></p>
-<h3 id="flex容器属性"><a href="#flex容器属性" class="headerlink" title="flex容器属性"></a>flex容器属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.container &#123;</div><div class="line">	display: flex | inline-flex; // 可以有两种取值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>flex-direction</li>
-<li>flex-wrap</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
-</ul>
-<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><h4 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h4><h4 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h4><h4 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h4><h4 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h4><h4 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h4><h3 id="flex项目属性"><a href="#flex项目属性" class="headerlink" title="flex项目属性"></a>flex项目属性</h3><ul>
-<li>order</li>
-<li>flex-basis</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex</li>
-<li>align-self</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangshifeng.com/2017/07/03/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="learn-shifeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://img.mukewang.com/578a26ab0001fffc01000100-200-200.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="learn-shifeng的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/03/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T18:27:58+08:00">
-                2017-07-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -673,6 +442,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -692,8 +465,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://img.mukewang.com/578a26ab0001fffc01000100-200-200.jpg"
@@ -737,6 +519,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-redux"><span class="nav-number">2.</span> <span class="nav-text">react-redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider"><span class="nav-number">3.</span> <span class="nav-text">Provider</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装原应用"><span class="nav-number">3.1.</span> <span class="nav-text">封装原应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递store"><span class="nav-number">3.2.</span> <span class="nav-text">传递store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect"><span class="nav-number">4.</span> <span class="nav-text">connect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mapStateToProps"><span class="nav-number">4.1.</span> <span class="nav-text">mapStateToProps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapDispatchToProps"><span class="nav-number">4.2.</span> <span class="nav-text">mapDispatchToProps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mergeProps-一般不用"><span class="nav-number">4.3.</span> <span class="nav-text">mergeProps(一般不用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options-一般不用"><span class="nav-number">4.4.</span> <span class="nav-text">options(一般不用)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React如何响应Store变化"><span class="nav-number">5.</span> <span class="nav-text">React如何响应Store变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何注册监听"><span class="nav-number">5.1.</span> <span class="nav-text">如何注册监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时注册"><span class="nav-number">5.2.</span> <span class="nav-text">何时注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时注销"><span class="nav-number">5.3.</span> <span class="nav-text">何时注销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变更处理逻辑"><span class="nav-number">5.4.</span> <span class="nav-text">变更处理逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-number">5.5.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -857,10 +655,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
