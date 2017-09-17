@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="css,flex," />
+  <meta name="keywords" content="CSRF,安全性," />
 
 
 
@@ -93,17 +93,19 @@
 
 
 
-<meta name="description" content="flex布局是什么?Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性.任何一个容器(块级和行内元素)都可以指定为flex布局.Webkit 内核的浏览器，必须加上-webkit前缀. flex的基本概念采用flex布局的元素，称为flex容器(flex container)，简称容器。 它的所有子元素自动成为容器成员, 称为flex项目(flex i">
-<meta name="keywords" content="css,flex">
+<meta name="description" content="CSRF 是什么?英文全称为Cross-site request forgery, 跨站请求伪造, 也被称为one-click attack 或者session riding. 跟跨网站脚本(XSS)相比, XSS利用的是用户对指定网站的信任, CSRF利用的是网站对用户网页浏览器的信任. CSRF 可以做什么?你可以这么理解CSRF攻击: 攻击者盗用了你的身份, 以你的名义发送恶意请求.例如:">
+<meta name="keywords" content="CSRF,安全性">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS-flex">
-<meta property="og:url" content="http://zhangshifeng.com/2017/07/04/CSS-flex/index.html">
+<meta property="og:title" content="浅谈CSRF">
+<meta property="og:url" content="http://zhangshifeng.com/2017/09/14/浅谈CSRF/index.html">
 <meta property="og:site_name" content="learn-shifeng的博客">
-<meta property="og:description" content="flex布局是什么?Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性.任何一个容器(块级和行内元素)都可以指定为flex布局.Webkit 内核的浏览器，必须加上-webkit前缀. flex的基本概念采用flex布局的元素，称为flex容器(flex container)，简称容器。 它的所有子元素自动成为容器成员, 称为flex项目(flex i">
-<meta property="og:updated_time" content="2017-08-17T07:58:22.000Z">
+<meta property="og:description" content="CSRF 是什么?英文全称为Cross-site request forgery, 跨站请求伪造, 也被称为one-click attack 或者session riding. 跟跨网站脚本(XSS)相比, XSS利用的是用户对指定网站的信任, CSRF利用的是网站对用户网页浏览器的信任. CSRF 可以做什么?你可以这么理解CSRF攻击: 攻击者盗用了你的身份, 以你的名义发送恶意请求.例如:">
+<meta property="og:image" content="http://ovuz52lng.bkt.clouddn.com/csrf.jpg">
+<meta property="og:updated_time" content="2017-09-14T07:47:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS-flex">
-<meta name="twitter:description" content="flex布局是什么?Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性.任何一个容器(块级和行内元素)都可以指定为flex布局.Webkit 内核的浏览器，必须加上-webkit前缀. flex的基本概念采用flex布局的元素，称为flex容器(flex container)，简称容器。 它的所有子元素自动成为容器成员, 称为flex项目(flex i">
+<meta name="twitter:title" content="浅谈CSRF">
+<meta name="twitter:description" content="CSRF 是什么?英文全称为Cross-site request forgery, 跨站请求伪造, 也被称为one-click attack 或者session riding. 跟跨网站脚本(XSS)相比, XSS利用的是用户对指定网站的信任, CSRF利用的是网站对用户网页浏览器的信任. CSRF 可以做什么?你可以这么理解CSRF攻击: 攻击者盗用了你的身份, 以你的名义发送恶意请求.例如:">
+<meta name="twitter:image" content="http://ovuz52lng.bkt.clouddn.com/csrf.jpg">
 
 
 
@@ -131,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangshifeng.com/2017/07/04/CSS-flex/"/>
+  <link rel="canonical" href="http://zhangshifeng.com/2017/09/14/浅谈CSRF/"/>
 
 
 
 
 
-  <title>CSS-flex | learn-shifeng的博客</title>
+  <title>浅谈CSRF | learn-shifeng的博客</title>
   
 
 
@@ -256,7 +258,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangshifeng.com/2017/07/04/CSS-flex/">
+    <link itemprop="mainEntityOfPage" href="http://zhangshifeng.com/2017/09/14/浅谈CSRF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="learn-shifeng">
@@ -273,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSS-flex</h1>
+          <h1 class="post-title" itemprop="name headline">浅谈CSRF</h1>
         
 
         <div class="post-meta">
@@ -285,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T14:33:46+08:00">
-                2017-07-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T12:56:07+08:00">
+                2017-09-14
               </time>
             
 
@@ -320,31 +322,31 @@
       
 
       
-        <h3 id="flex布局是什么"><a href="#flex布局是什么" class="headerlink" title="flex布局是什么?"></a>flex布局是什么?</h3><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性.<br>任何一个容器(块级和行内元素)都可以指定为flex布局.<br>Webkit 内核的浏览器，必须加上-webkit前缀.</p>
-<h3 id="flex的基本概念"><a href="#flex的基本概念" class="headerlink" title="flex的基本概念"></a>flex的基本概念</h3><p>采用flex布局的元素，称为flex容器(flex container)，简称<code>容器</code>。</p>
-<p>它的所有子元素自动成为容器成员, 称为flex项目(flex item)，简称<code>项目</code>。</p>
-<h3 id="flex容器属性"><a href="#flex容器属性" class="headerlink" title="flex容器属性"></a>flex容器属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.container &#123;</div><div class="line">	display: flex | inline-flex; // 可以有两种取值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>注意：当时设置 flex 布局之后，子元素的 float、clear、vertical-align 的属性将会失效。</p>
-</blockquote>
+        <h3 id="CSRF-是什么"><a href="#CSRF-是什么" class="headerlink" title="CSRF 是什么?"></a>CSRF 是什么?</h3><p>英文全称为<code>Cross-site request forgery</code>, <a href="https://baike.baidu.com/item/CSRF" target="_blank" rel="external">跨站请求伪造</a>, 也被称为one-click attack 或者<br>session riding.</p>
+<p>跟<a href="https://baike.baidu.com/item/XSS/917356" target="_blank" rel="external">跨网站脚本(XSS)</a>相比, XSS利用的是用户对指定网站的信任, CSRF利用的是网站对用户网页浏览器的信任.</p>
+<h3 id="CSRF-可以做什么"><a href="#CSRF-可以做什么" class="headerlink" title="CSRF 可以做什么?"></a>CSRF 可以做什么?</h3><p>你可以这么理解CSRF攻击: <strong>攻击者盗用了你的身份, 以你的名义发送恶意请求</strong>.<br>例如:</p>
 <ul>
-<li><p>flex-direction</p>
-</li>
-<li><p>flex-wrap</p>
-</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
+<li>以你的名义发送邮件, 消息;</li>
+<li>盗取你的账号;</li>
+<li>甚至于购买商品, 虚拟货币转账等</li>
 </ul>
-<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><h4 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h4><h4 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h4><h4 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h4><h4 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h4><h4 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h4><h3 id="flex项目属性"><a href="#flex项目属性" class="headerlink" title="flex项目属性"></a>flex项目属性</h3><ul>
-<li>order</li>
-<li>flex-basis</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex</li>
-<li>align-self</li>
-</ul>
+<p>会造成个人隐私泄露以及财产安全.</p>
+<h3 id="CSRF原理"><a href="#CSRF原理" class="headerlink" title="CSRF原理"></a>CSRF原理</h3><p>盗用网络上一张图简单阐述下CSRF攻击的思想:<br><img src="http://ovuz52lng.bkt.clouddn.com/csrf.jpg" alt="CSRF攻击思想"></p>
+<h3 id="CSRF防御"><a href="#CSRF防御" class="headerlink" title="CSRF防御"></a>CSRF防御</h3><h4 id="验证-HTTP-Referer-字段"><a href="#验证-HTTP-Referer-字段" class="headerlink" title="验证 HTTP Referer 字段;"></a>验证 HTTP Referer 字段;</h4><p>根据 HTTP 协议, 在 HTTP 头中有一个字段叫 Referer, <code>它记录了该 HTTP 请求的来源地址</code>. </p>
+<p>在通常情况下, 访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=aaa&amp;amount=1000&amp;for=bbb" target="_blank" rel="external">http://bank.example/withdraw?account=aaa&amp;amount=1000&amp;for=bbb</a>, 用户必须先登陆 bank.example, 然后通过点击页面上的按钮来触发转账事件. 这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL. 而如果黑客要对银行网站实施 CSRF 攻击, 他只能在自己或者由用户控制产出内容的网站构造请求, 请求的 Referer 是指向非银行转账页面的URL. </p>
+<p>因此, 要防御 CSRF 攻击, 银行网站只需要对于每一个转账请求验证其 Referer 值, 如果 Referer 是其他网站的话, 则有可能是黑客的 CSRF 攻击, 拒绝该请求.</p>
+<h4 id="加验证码"><a href="#加验证码" class="headerlink" title="加验证码"></a>加验证码</h4><p>强制用户必须与应用进行交互, 才能完成最终请求, 一般情况下, 这能很好的遏制CSRF攻击, 但是用户体验性太差; 因此只能作为一种辅助手段, 不能作为主要解决方案;</p>
+<h4 id="添加token并验证"><a href="#添加token并验证" class="headerlink" title="添加token并验证;"></a>添加token并验证;</h4><p>现在业界对CSRF的防御, 一致的做法是使用一个Token;<br>例子:</p>
+<ol>
+<li>用户访问某个表单页面</li>
+<li>服务端生成一个Token, 放在用户的Session中, 或者浏览器的Cookie中.</li>
+<li>在页面表单附带上Token参数</li>
+<li>用户提交请求后, 服务端验证表单中的Token是否与用户session中的Token一致, 一致为合法请求, 不是则非法请求.</li>
+</ol>
+<p>这个Token的值必须是随机的, 不可预测的. 由于Token的存在, 攻击者将无法伪造一个合法的Token来发起CSRF攻击.</p>
+<blockquote>
+<p>注意: 当网站同时存在<a href="https://baike.baidu.com/item/XSS%E6%94%BB%E5%87%BB" target="_blank" rel="external">XSS漏洞</a>的时候, 那这个方案也是空谈. XSS带来的问题应该使用XSS的防御方案予以解决.</p>
+</blockquote>
 
       
     </div>
@@ -374,9 +376,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/" rel="tag"># css</a>
+            <a href="/tags/CSRF/" rel="tag"># CSRF</a>
           
-            <a href="/tags/flex/" rel="tag"># flex</a>
+            <a href="/tags/安全性/" rel="tag"># 安全性</a>
           
         </div>
       
@@ -389,8 +391,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/03/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/09/06/从输入URL到页面加载发生了什么/" rel="next" title="从输入URL到页面加载发生了什么?">
+                <i class="fa fa-chevron-left"></i> 从输入URL到页面加载发生了什么?
               </a>
             
           </div>
@@ -399,8 +401,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/05/react-redux原理分析/" rel="prev" title="react-redux原理分析">
-                react-redux原理分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/14/浅谈XSS/" rel="prev" title="浅谈XSS">
+                浅谈XSS <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -521,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex布局是什么"><span class="nav-number">1.</span> <span class="nav-text">flex布局是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex的基本概念"><span class="nav-number">2.</span> <span class="nav-text">flex的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex容器属性"><span class="nav-number">3.</span> <span class="nav-text">flex容器属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-direction"><span class="nav-number">3.1.</span> <span class="nav-text">flex-direction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-wrap"><span class="nav-number">3.2.</span> <span class="nav-text">flex-wrap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-flow"><span class="nav-number">3.3.</span> <span class="nav-text">flex-flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#justify-content"><span class="nav-number">3.4.</span> <span class="nav-text">justify-content</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#align-items"><span class="nav-number">3.5.</span> <span class="nav-text">align-items</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#align-content"><span class="nav-number">3.6.</span> <span class="nav-text">align-content</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex项目属性"><span class="nav-number">4.</span> <span class="nav-text">flex项目属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-是什么"><span class="nav-number">1.</span> <span class="nav-text">CSRF 是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-可以做什么"><span class="nav-number">2.</span> <span class="nav-text">CSRF 可以做什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF原理"><span class="nav-number">3.</span> <span class="nav-text">CSRF原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF防御"><span class="nav-number">4.</span> <span class="nav-text">CSRF防御</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证-HTTP-Referer-字段"><span class="nav-number">4.1.</span> <span class="nav-text">验证 HTTP Referer 字段;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加验证码"><span class="nav-number">4.2.</span> <span class="nav-text">加验证码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加token并验证"><span class="nav-number">4.3.</span> <span class="nav-text">添加token并验证;</span></a></li></ol></li></ol></div>
             
 
           </div>
