@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本人segmentfault原文连接  前言多行文本超出高度限制出现省略号 , 移动端多为webkit内核的 , 有扩展属性-webkit-line-clamp , 但并不是CSS规范中的属性 , PC端往往要借助js去实现这一效果，但麻烦且不是很靠谱，今天就用纯CSS来实现一个完全兼容的多行省略。 正文一、webkit内核的实现-webkit-line-clamp设置块元素包含的文本行数；di">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="纯CSS实现多行文本省略(兼容所有浏览器)">
+<meta property="og:url" content="http://zhangshifeng.com/2017/09/18/纯CSS实现多行文本省略-兼容所有浏览器/index.html">
+<meta property="og:site_name" content="learn-shifeng的博客">
+<meta property="og:description" content="本人segmentfault原文连接  前言多行文本超出高度限制出现省略号 , 移动端多为webkit内核的 , 有扩展属性-webkit-line-clamp , 但并不是CSS规范中的属性 , PC端往往要借助js去实现这一效果，但麻烦且不是很靠谱，今天就用纯CSS来实现一个完全兼容的多行省略。 正文一、webkit内核的实现-webkit-line-clamp设置块元素包含的文本行数；di">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/143/937/143937563-58df6ae8d1c3a_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/136/489/1364892624-58df6b48eb1b2_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/155/709/1557099873-58df6f89660c0_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/124/578/124578324-58df6fc084b22_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/185/242/1852424624-58df726d6ec91_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/206/928/2069284843-58df792143eec_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/328/252/3282527152-58e46bfd8d0a2_articlex">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/270/898/2708986942-58e46f51e8013_articlex">
+<meta property="og:updated_time" content="2017-09-18T13:02:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="纯CSS实现多行文本省略(兼容所有浏览器)">
+<meta name="twitter:description" content="本人segmentfault原文连接  前言多行文本超出高度限制出现省略号 , 移动端多为webkit内核的 , 有扩展属性-webkit-line-clamp , 但并不是CSS规范中的属性 , PC端往往要借助js去实现这一效果，但麻烦且不是很靠谱，今天就用纯CSS来实现一个完全兼容的多行省略。 正文一、webkit内核的实现-webkit-line-clamp设置块元素包含的文本行数；di">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/143/937/143937563-58df6ae8d1c3a_articlex">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhangshifeng.com/2017/09/18/纯CSS实现多行文本省略-兼容所有浏览器/"/>
+
+
+
+
+
+  <title>纯CSS实现多行文本省略(兼容所有浏览器) | learn-shifeng的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">learn-shifeng的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangshifeng.com/2017/09/18/纯CSS实现多行文本省略-兼容所有浏览器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="learn-shifeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://img.mukewang.com/578a26ab0001fffc01000100-200-200.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="learn-shifeng的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">纯CSS实现多行文本省略(兼容所有浏览器)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T20:51:54+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://segmentfault.com/a/1190000008921613" target="_blank" rel="external">本人segmentfault原文连接</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>多行文本超出高度限制出现省略号 , 移动端多为webkit内核的 , 有扩展属性-webkit-line-clamp , 但并不是CSS规范中的属性 , PC端往往要借助js去实现这一效果，但麻烦且不是很靠谱，今天就用纯CSS来实现一个完全兼容的多行省略。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="一、webkit内核的实现"><a href="#一、webkit内核的实现" class="headerlink" title="一、webkit内核的实现"></a>一、webkit内核的实现</h2><p><code>-webkit-line-clamp</code>设置块元素包含的文本行数；<br><code>display: -webkit-box</code>设置块元素的布局为伸缩布局；<br><code>-webkit-box-orient</code>设置伸缩项的布局方向；<br><code>text-overflow: ellipsis;</code>则表示超出盒子的部分使用省略号表示。</p>
+<h2 id="二、非webkit内核实现"><a href="#二、非webkit内核实现" class="headerlink" title="二、非webkit内核实现"></a>二、非webkit内核实现</h2><blockquote>
+<p>不过本文将要介绍的方法是<code>采用CSS规范中的属性</code>，并结合特殊的实现技巧完成的。这意味着在实现CSS2.1规范的浏览器中都是可以兼容的，不将仅仅是纯粹的移动端领域，在传统的PC浏览器（你们懂得我指的是哪些浏览器）中仍是可行的。好吧，让我们一起见识下。</p>
+</blockquote>
+<p>一共7个步骤，最简单的就是截断文本，最难的部分则是<code>让一个元素出在其父块的溢出时的右下方</code>，并且当父元素未溢出时该元素消失不可见。（<code>代码可直接粘贴看效果</code>）</p>
+<h3 id="1、基本结构布局"><a href="#1、基本结构布局" class="headerlink" title="1、基本结构布局"></a>1、基本结构布局</h3><p>最简单的开始：当父包含框比较小时，将子元素布局到父包含框的右下角；<br>HTML<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;wrap&quot;&gt;</div><div class="line">	&lt;div class=&quot;prop&quot;&gt;</div><div class="line">           1.prop</div><div class="line">       &lt;/div&gt;</div><div class="line">	&lt;div class=&quot;main&quot;&gt;</div><div class="line">		2.main 这里是主题内容，多行省略</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;end&quot;&gt;</div><div class="line">		3.end</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">.wrap &#123;</div><div class="line">	width: 400px;</div><div class="line">	height: 50px;</div><div class="line">	margin: 20px 20px 50px 300px;</div><div class="line">	border: 5px solid #AAA;</div><div class="line">	line-height: 25px;</div><div class="line">&#125;</div><div class="line">.prop &#123;</div><div class="line">	float: left;</div><div class="line">	width: 50px;</div><div class="line">	height: 50px;</div><div class="line">	background: #FAF;</div><div class="line">&#125;</div><div class="line">.main &#123;</div><div class="line">	float: right;</div><div class="line">	width: 350px;</div><div class="line">	background: #AFF;</div><div class="line">	word-break: break-all;</div><div class="line">&#125;</div><div class="line">.end &#123;</div><div class="line">	position: relative;</div><div class="line">	float: right;</div><div class="line">	width: 50px;</div><div class="line">	background: #FFA;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>效果如下面几张图（<code>注意黄色end的位置</code>）, 其实这个实现完全利用了元素浮动的基本规则。</strong></p>
+<p><img src="https://sfault-image.b0.upaiyun.com/143/937/143937563-58df6ae8d1c3a_articlex" alt=""></p>
+<p><img src="https://sfault-image.b0.upaiyun.com/136/489/1364892624-58df6b48eb1b2_articlex" alt=""></p>
+<h3 id="2、定位模拟’…’"><a href="#2、定位模拟’…’" class="headerlink" title="2、定位模拟’…’"></a>2、定位模拟’…’</h3><p>我们通过创建一个子元素来替代将要显示的省略号，当本文溢出的情形下该元素显示在正确的位置上。在接下来的实现中，我们创建一个realend元素，利用上一步骤中end元素浮动后的位置来实现realEnd元素的定位。<br>HTML<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;wrap&quot;&gt;</div><div class="line">	&lt;div class=&quot;prop&quot;&gt;1.prop&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;main&quot;&gt;</div><div class="line">		2.main 这里是要多行文本溢出省略的，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;end&quot;&gt;</div><div class="line">		3.end</div><div class="line">		&lt;div class=&quot;realEnd&quot;&gt;realEnd&lt;/div&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 新增下面样式即可</div><div class="line">.realEnd &#123;</div><div class="line">	position: absolute;</div><div class="line">	width: 100%;</div><div class="line">	height: 25px;</div><div class="line">	top: -25px; /*等于高度的负值，就是文字的行高*/</div><div class="line">	left: 350px;</div><div class="line">	background: #FAA;</div><div class="line">	font-size: 13px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>效果如图下图</strong></p>
+<p><img src="https://sfault-image.b0.upaiyun.com/155/709/1557099873-58df6f89660c0_articlex" alt=""></p>
+<p>若父元素并没有溢出，那么realend元素会出现在其右侧(设置wrap overflow：hidden即可，下面会解决)</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/124/578/124578324-58df6fc084b22_articlex" alt=""></p>
+<h3 id="3、优化定位"><a href="#3、优化定位" class="headerlink" title="3、优化定位"></a>3、优化定位</h3><p>第二步中我们针对end元素设置了相对定位，对realEnd元素设置了绝对定位。但是我们可以采用更简单的代码来实现，即只使用相对定位。熟悉定位模型的同学应该知道，相对定位的元素仍然占据文本流，同时针对元素设置偏移。这样， 就可以去掉end元素了，仅针对realEnd元素设置相对定位。<br>HTML<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;wrap&quot;&gt;</div><div class="line">	&lt;div class=&quot;prop&quot;&gt;1.prop&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;main&quot;&gt;</div><div class="line">		2.main 这里是要多行文本溢出省略的，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;realEnd&quot;&gt;realEnd&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 删除end样式，realEnd样式更改如下</div><div class="line">.realEnd &#123;</div><div class="line">	float: right;</div><div class="line">	position: relative;</div><div class="line">	width: 50px;</div><div class="line">	height: 25px;</div><div class="line">	top: -25px; /*等于高度的负值，就是文字的行高*/</div><div class="line">	left: 350px;</div><div class="line">	background: #FAA;</div><div class="line">	font-size: 13px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>效果如图（<code>黄色的end已经没了</code>）</strong></p>
+<p><img src="https://sfault-image.b0.upaiyun.com/185/242/1852424624-58df726d6ec91_articlex" alt=""></p>
+<h3 id="4、削窄prop元素"><a href="#4、削窄prop元素" class="headerlink" title="4、削窄prop元素"></a>4、削窄prop元素</h3><p>目前，最左侧的prop元素的作用在于让realend元素在文本溢出时处在其正下方，在前几节的示例代码中为了直观的演示，设置prop元素的宽度为50px，那么现在为了更好的模拟实际的效果，我们缩小prop元素的宽度。</p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// 更改部分样式如下</div><div class="line">.prop &#123;</div><div class="line">	float: left;</div><div class="line">	width: 5px;/*缩小宽度为5px，其余属性不变*/</div><div class="line">	height: 50px;</div><div class="line">	background: #FAF;</div><div class="line">&#125;</div><div class="line">.main &#123;</div><div class="line">	float: right;</div><div class="line">	width: 400px;</div><div class="line">	margin-left: -5px;/*让main元素左移5px，这样main元素在宽度上就完全占满了父元素；*/</div><div class="line">	background: #AFF;</div><div class="line">	word-break: break-all;</div><div class="line">&#125;</div><div class="line">.realEnd &#123;</div><div class="line">	float: right;</div><div class="line">	position: relative;</div><div class="line">	width: 50px;</div><div class="line">	height: 25px;</div><div class="line">	top: -25px; /*等于高度的负值，就是文字的行高*/</div><div class="line">	left: 400px;</div><div class="line">	/*而设置margin-left: -50px、padding-right: 5px则是为了让realend元素的盒模型的最终宽度计算为5px。*/</div><div class="line">	margin-left: -50px;</div><div class="line">	padding-right: 5px;</div><div class="line">	background: #FAA;</div><div class="line">	font-size: 13px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>由于CSS规范规定padding的值不可以为负数，因此只有设置margind-left为负值，<code>且等于其宽度</code>。这样做的最终目的就是保证realend元素处在prop元素的下方，保证在文本溢出的情况下定位准确性:</p>
+</blockquote>
+<p><strong>效果图如下</strong></p>
+<p><img src="https://sfault-image.b0.upaiyun.com/206/928/2069284843-58df792143eec_articlex" alt=""></p>
+<h3 id="5、流式布局-伪元素"><a href="#5、流式布局-伪元素" class="headerlink" title="5、流式布局 + 伪元素"></a>5、流式布局 + 伪元素</h3><p>目前，realend元素的相关属性仍采用px度量，为了更好的扩展性，可以改用%替代。</p>
+<p>同时，prop元素和realend元素可以采用伪元素来实现，减少额外标签的使用。</p>
+<p>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">.mutil-line-ellipsis &#123;</div><div class="line">	width: 400px;</div><div class="line">	height: 50px;</div><div class="line">	margin: 20px 20px 50px 300px;</div><div class="line">	border: 5px solid #AAA;</div><div class="line">	line-height: 25px;</div><div class="line">	/*overflow: hidden;*/</div><div class="line">&#125;</div><div class="line">/*相当于之前的prop*/</div><div class="line">.mutil-line-ellipsis:before &#123;</div><div class="line">	content: &apos;&apos;;</div><div class="line">	float: left;</div><div class="line">	width: 5px;/*缩小宽度为5px，其余属性不变*/</div><div class="line">	height: 50px;</div><div class="line">	background: #FAF;</div><div class="line">&#125;</div><div class="line">/*相当于之前的main*/</div><div class="line">.mutil-line-ellipsis &gt; :first-child &#123;</div><div class="line">	float: right;</div><div class="line">	width: 100%;</div><div class="line">	margin-left: -5px;/*让main元素左移5px，这样main元素在宽度上就完全占满了父元素；*/</div><div class="line">	background: #AFF;</div><div class="line">	word-break: break-all;</div><div class="line">&#125;</div><div class="line">/*相当于之前的realEnd*/</div><div class="line">.mutil-line-ellipsis:after &#123;</div><div class="line">	content: &apos;realEnd&apos;;</div><div class="line">	float: right;</div><div class="line">	position: relative;</div><div class="line">	width: 50px;</div><div class="line">	height: 25px;</div><div class="line">	top: -25px; /*等于高度的负值，就是文字的行高*/</div><div class="line">	left: 100%;</div><div class="line">	/*而设置margin-left: -50px、padding-right: 5px则是为了让realend元素的盒模型的最终宽度计算为5px。*/</div><div class="line">	margin-left: -50px;</div><div class="line">	padding-right: 5px;</div><div class="line">	background: #FAA;</div><div class="line">	font-size: 13px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>HTML<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;mutil-line-ellipsis&quot;&gt;</div><div class="line">	&lt;div&gt;</div><div class="line">		2.main 这里是要多行文本溢出省略的，内容多一点，内容多一点，内容多一点，内容多一点</div><div class="line">		内容多一点，内容多一点，内容多一点，内容多一点，内容多一点，内容多一点</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>效果和上一步一样</p>
+<h3 id="6、隐藏"><a href="#6、隐藏" class="headerlink" title="6、隐藏"></a>6、隐藏</h3><p>之前的实现中在文本未溢出的情况下，realEnd元素会出现在父元素的右侧，正如<br><img src="https://sfault-image.b0.upaiyun.com/328/252/3282527152-58e46bfd8d0a2_articlex" alt=""><br>设置<br>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.mutil-line-ellipsis &#123;</div><div class="line">     overflow: hidden;   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="7、美化"><a href="#7、美化" class="headerlink" title="7、美化"></a>7、美化</h3><p>现在我们离完结就差一步了，即去掉各元素的背景色，并且用“…”替换文本。最后为了优化体验，采用渐变来隐藏“…”覆盖的文本，（省略了一些兼容性的属性）。<br>CSS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">.mutil-line-ellipsis &#123;</div><div class="line">	width: 400px;</div><div class="line">	height: 50px;</div><div class="line">	line-height: 25px;</div><div class="line">	margin: 20px 20px 50px 300px;</div><div class="line">	border: 5px solid #AAA;</div><div class="line">	line-height: 25px;</div><div class="line">	overflow: hidden;</div><div class="line">&#125;</div><div class="line">/*相当于之前的prop*/</div><div class="line">.mutil-line-ellipsis:before &#123;</div><div class="line">	content: &apos;&apos;;</div><div class="line">	float: left;</div><div class="line">	width: 5px;/*缩小宽度为5px，其余属性不变*/</div><div class="line">	height: 50px;</div><div class="line">&#125;</div><div class="line">/*相当于之前的main*/</div><div class="line">.mutil-line-ellipsis &gt; :first-child &#123;</div><div class="line">	float: right;</div><div class="line">	width: 100%;</div><div class="line">	margin-left: -5px;/*让main元素左移5px，这样main元素在宽度上就完全占满了父元素；*/</div><div class="line">	word-break: break-all;</div><div class="line">&#125;</div><div class="line">/*相当于之前的realEnd*/</div><div class="line">.mutil-line-ellipsis:after &#123;</div><div class="line">	content: &apos;...&apos;;</div><div class="line">	box-sizing: content-box;</div><div class="line">	float: right;</div><div class="line">	position: relative;</div><div class="line">	width: 50px;</div><div class="line">	height: 25px;</div><div class="line">	top: -25px; /*等于高度的负值，就是文字的行高*/</div><div class="line">	left: 100%;</div><div class="line">	/*而设置margin-left: -50px、padding-right: 5px则是为了让realend元素的盒模型的最终宽度计算为5px。*/</div><div class="line">	margin-left: -50px;</div><div class="line">	padding-right: 5px;</div><div class="line">	font-size: 13px;</div><div class="line">	text-align: right;</div><div class="line">	background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 40px);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>效果（自己可调整省略样式）</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/270/898/2708986942-58e46f51e8013_articlex" alt=""></p>
+<h1 id="总结之兼容性"><a href="#总结之兼容性" class="headerlink" title="总结之兼容性"></a>总结之兼容性</h1><p>从上文的实现细节来看，我们利用的技巧完全是CSS规范中的浮动+定位+盒模型宽度计算，唯一存在兼容性问题的在于无关痛痒的渐变实现，因此可以在大多数浏览器下进行尝试。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/14/浅谈XSS/" rel="next" title="浅谈XSS">
+                <i class="fa fa-chevron-left"></i> 浅谈XSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img.mukewang.com/578a26ab0001fffc01000100-200-200.jpg"
+               alt="learn-shifeng" />
+          <p class="site-author-name" itemprop="name">learn-shifeng</p>
+           
+              <p class="site-description motion-element" itemprop="description">JavaScript , CSS , HTML , Node , Http</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、webkit内核的实现"><span class="nav-number">2.1.</span> <span class="nav-text">一、webkit内核的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、非webkit内核实现"><span class="nav-number">2.2.</span> <span class="nav-text">二、非webkit内核实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、基本结构布局"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、基本结构布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、定位模拟’…’"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、定位模拟’…’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、优化定位"><span class="nav-number">2.2.3.</span> <span class="nav-text">3、优化定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、削窄prop元素"><span class="nav-number">2.2.4.</span> <span class="nav-text">4、削窄prop元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、流式布局-伪元素"><span class="nav-number">2.2.5.</span> <span class="nav-text">5、流式布局 + 伪元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、隐藏"><span class="nav-number">2.2.6.</span> <span class="nav-text">6、隐藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、美化"><span class="nav-number">2.2.7.</span> <span class="nav-text">7、美化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结之兼容性"><span class="nav-number">3.</span> <span class="nav-text">总结之兼容性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">learn-shifeng</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
