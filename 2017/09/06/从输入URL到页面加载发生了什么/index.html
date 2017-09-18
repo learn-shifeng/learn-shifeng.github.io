@@ -93,18 +93,20 @@
 
 
 
-<meta name="description" content="概述 DNS解析 TCP连接 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 连接结束  具体过程1. DNS解析DNS解析的过程, 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com, 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址, 但是IP地址并不方便记忆. 用户更喜欢用方便记忆的网址去寻找互联网上的">
+<meta name="description" content="概述 DNS解析 TCP连接, 三次握手 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 TCP连接结束, 四次挥手  具体过程1. DNS解析DNS解析的过程 , 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com , 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址 , 但是IP地址并不方便记忆. 用户更">
 <meta name="keywords" content="DNS,TCP,HTTP,HTTPS,浏览器渲染">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从输入URL到页面加载发生了什么?">
 <meta property="og:url" content="http://zhangshifeng.com/2017/09/06/从输入URL到页面加载发生了什么/index.html">
 <meta property="og:site_name" content="learn-shifeng的博客">
-<meta property="og:description" content="概述 DNS解析 TCP连接 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 连接结束  具体过程1. DNS解析DNS解析的过程, 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com, 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址, 但是IP地址并不方便记忆. 用户更喜欢用方便记忆的网址去寻找互联网上的">
+<meta property="og:description" content="概述 DNS解析 TCP连接, 三次握手 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 TCP连接结束, 四次挥手  具体过程1. DNS解析DNS解析的过程 , 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com , 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址 , 但是IP地址并不方便记忆. 用户更">
 <meta property="og:image" content="http://ovuz52lng.bkt.clouddn.com/simple_dns.png">
-<meta property="og:updated_time" content="2017-09-06T12:48:22.000Z">
+<meta property="og:image" content="http://ovuz52lng.bkt.clouddn.com/find_google_ip.png">
+<meta property="og:image" content="http://ovuz52lng.bkt.clouddn.com/three-way_handshaking.png">
+<meta property="og:updated_time" content="2017-09-18T03:19:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从输入URL到页面加载发生了什么?">
-<meta name="twitter:description" content="概述 DNS解析 TCP连接 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 连接结束  具体过程1. DNS解析DNS解析的过程, 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com, 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址, 但是IP地址并不方便记忆. 用户更喜欢用方便记忆的网址去寻找互联网上的">
+<meta name="twitter:description" content="概述 DNS解析 TCP连接, 三次握手 HTTP连接 服务器处理请求并返回HTTP报文 浏览器渲染解析页面 TCP连接结束, 四次挥手  具体过程1. DNS解析DNS解析的过程 , 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com , 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的IP地址 , 但是IP地址并不方便记忆. 用户更">
 <meta name="twitter:image" content="http://ovuz52lng.bkt.clouddn.com/simple_dns.png">
 
 
@@ -324,15 +326,53 @@
       
         <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ol>
 <li>DNS解析</li>
-<li>TCP连接</li>
+<li>TCP连接, 三次握手</li>
 <li>HTTP连接</li>
 <li>服务器处理请求并返回HTTP报文</li>
 <li>浏览器渲染解析页面</li>
-<li>连接结束</li>
+<li>TCP连接结束, 四次挥手</li>
 </ol>
-<h3 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h3><h4 id="1-DNS解析"><a href="#1-DNS解析" class="headerlink" title="1. DNS解析"></a>1. <a href="https://baike.baidu.com/item/dns/427444?fr=aladdin" target="_blank" rel="external">DNS</a>解析</h4><p>DNS解析的过程, 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com, 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的<a href="https://baike.baidu.com/item/IP%E5%9C%B0%E5%9D%80" target="_blank" rel="external">IP地址</a>, 但是IP地址并不方便记忆. 用户更喜欢用方便记忆的网址去寻找互联网上的其他计算机, 也就是上面提到的百度网址www.baidu.com. 所以互联网设计者需要在用户的方便性与可用性方面做一个权衡, 这个权衡就是一个<code>网址</code>到<code>IP地址</code>的转换, 这个过程就是DNS解析. 他实际上充当了一个翻译的角色, 实现了<code>网址</code>到<code>IP地址</code>的转换.<br>简单暴力的解释如下图:</p>
+<h3 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h3><h4 id="1-DNS解析"><a href="#1-DNS解析" class="headerlink" title="1. DNS解析"></a>1. <a href="https://baike.baidu.com/item/dns/427444?fr=aladdin" target="_blank" rel="external">DNS</a>解析</h4><p>DNS解析的过程 , 就是寻找哪台机器上有你需要资源的过程. 当你在浏览器输入一个www.baidu.com , 其实并不是百度网站真正意义上的地址. 互联网上每一台计算机的唯一标识是他的<a href="https://baike.baidu.com/item/IP%E5%9C%B0%E5%9D%80" target="_blank" rel="external">IP地址</a> , 但是IP地址并不方便记忆. 用户更喜欢用方便记忆的网址去寻找互联网上的其他计算机 , 也就是上面提到的百度网址www.baidu.com. 所以互联网设计者需要在用户的方便性与可用性方面做一个权衡 , 这个权衡就是一个<code>网址</code>到<code>IP地址</code>的转换 , 这个过程就是DNS解析. 他实际上充当了一个翻译的角色 , 实现了<code>网址</code>到<code>IP地址</code>的转换.<br>简单暴力的解释如下图:</p>
 <p><img src="http://ovuz52lng.bkt.clouddn.com/simple_dns.png" alt="DNS简单示意"></p>
-<h5 id="解析过程"><a href="#解析过程" class="headerlink" title="解析过程"></a>解析过程</h5><p>DNS解析是一个递归查询的过程</p>
+<p>DNS解析是一个递归查询的过程</p>
+<p><img src="http://ovuz52lng.bkt.clouddn.com/find_google_ip.png" alt="查找www.google.com的IP地址的过程"></p>
+<p>上图是查找 www.google.com 的IP地址的过程:</p>
+<ol>
+<li>在本地域名服务器中查询IP地址;</li>
+<li>如果没找到 , 本地域名服务器会向根域名服务器发送一个请求;</li>
+<li>如果没找到 , 本地域名服务器会向com顶级域名服务器发送一个请求;</li>
+<li>如果没找到 , 本地域名服务器会向google.com域名服务器发送一个请求;</li>
+<li>本地域名服务器得到google.com的IP地址并把它缓存到本地 , 供下次查询使用.</li>
+</ol>
+<p>上述网址的解析是: <code>com -&gt; google.com -&gt; www.google.com</code>.</p>
+<p>是否发现少了点什么? 根域名服务器的解析过程呢? 事实上 , 真正的网址是<code>www.google.com.</code> , 并不是我多打了一个 <code>.</code> , 这个 <code>.</code> 对应的就是根域名服务器 , 默认情况下所有的网址的最后一位都是 <code>.</code>.既然是默认情况下 , 为了方便用户 , 通常都会省略 , 浏览器在请求DNS的时候会自动加上.</p>
+<p>故 , 所有网址真正的解析过程为: <code>. -&gt; com. -&gt; google.com. -&gt; www.google.com.</code>.</p>
+<blockquote>
+<p>关于DNS的更细节的过程以及优化, 就不再这里赘述了, 大家请自行查询, 这里点到为止. 知乎链接来一发 <a href="https://www.zhihu.com/question/23042131" target="_blank" rel="external">DNS解析的过程是什么, 求详细的</a></p>
+</blockquote>
+<h4 id="2-TCP连接"><a href="#2-TCP连接" class="headerlink" title="2. TCP连接"></a>2. TCP连接</h4><p>知道了服务器的IP地址, 下面便开始与服务器建立连接了.<br><img src="http://ovuz52lng.bkt.clouddn.com/three-way_handshaking.png" alt="TCP三次握手"><br>通俗来讲, 举个栗子, A和B打电话, 前提是保证两个人能互相听见对方.</p>
+<ul>
+<li>A: 你能听见我吗?</li>
+<li>B: 我能听见你, 你能听见我吗?</li>
+<li>A: 我也能听见你, 咱们开始聊天吧!</li>
+</ul>
+<p>相关问题:</p>
+<ul>
+<li>为什么用TCP?<blockquote>
+<p>其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号.</p>
+</blockquote>
+</li>
+<li>为什么是三次握手, 而不是四次, 五次?<blockquote>
+<p>这是对<code>可靠性</code>和<code>效率</code>两个方面的折中, 三次是保证可靠性的最小值, 也避免不必要的多次握手的开销.</p>
+</blockquote>
+</li>
+<li>TCP什么时候关闭 ? 是否可以多个http请求复用一个 ? 如果是复用TCP , TCP什么时候关闭呢?<blockquote>
+<p>一般情况下, 完成一次http请求, 服务端就会设置<code>Connection: close</code>关闭这个TCP链接.</p>
+<p>如果有需要复用TCP连接, 服务端可以配置长连接, 可以请求头设置<code>Connection: keep-alive</code>表示自己可以接受长连接, 服务端响应头设置<code>Connection: keep-alive</code>告知浏览器建立长连接.</p>
+<p>服务端对长连接有<code>超时</code>配置, TCP协议也有自己的keep-alive保鲜机制 ( <a href="https://cn2.chionlab.moe/2016/09/24/linux-tcp-keepalive/" target="_blank" rel="external">NAT和保活机制</a> 和 <a href="https://cn2.chionlab.moe/2016/11/07/tcp-keepalive-on-chrome/" target="_blank" rel="external">浏览器的keep-alive机制</a> ), 来检测判断是否要关闭TCP连接.</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -515,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体过程"><span class="nav-number">2.</span> <span class="nav-text">具体过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DNS解析"><span class="nav-number">2.1.</span> <span class="nav-text">1. DNS解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解析过程"><span class="nav-number">2.1.1.</span> <span class="nav-text">解析过程</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体过程"><span class="nav-number">2.</span> <span class="nav-text">具体过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DNS解析"><span class="nav-number">2.1.</span> <span class="nav-text">1. DNS解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-TCP连接"><span class="nav-number">2.2.</span> <span class="nav-text">2. TCP连接</span></a></li></ol></li></ol></div>
             
 
           </div>
